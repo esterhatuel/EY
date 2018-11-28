@@ -22,7 +22,7 @@ public class PriorityJobScheduler {
                 try {
                     priorityJobPoolExecutor.execute(priorityQueue.take());
                 } catch (InterruptedException e) {
-                    // exception needs special handling
+                	System.out.println(e.getMessage());
                     break;
                 }
             }

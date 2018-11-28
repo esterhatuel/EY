@@ -1,4 +1,3 @@
-
 package server;
 
 import java.io.*;
@@ -15,6 +14,7 @@ public class MyServer implements Server{
 	private volatile boolean stop;
 	
 	public MyServer(int port) {
+		super();
 		this.port=port;
 		stop=false;
 	}
@@ -23,29 +23,33 @@ public class MyServer implements Server{
 		ServerSocket server=new ServerSocket(port);
 		//ExecutorService executor = Executors. newFixedThreadPool (2);
 		
-
-			while(!stop){
+			while(!stop){	
 				
-					
-					PriorityJobScheduler pjs = new PriorityJobScheduler(
-						      2,2) ; 
-					pjs.scheduleJob(new Job(server,ch));
-                    
+				
+				Socket aClient =  server.accept();
 			
+				ExecutorService priorityJobScheduler = Executors.newSingleThreadExecutor();
+	              priorityJobScheduler.execute(() ->{
+				    System.out.println("aggg");
+					PriorityJobScheduler pjs = new PriorityJobScheduler(2,2) ; 
+					pjs.scheduleJob(new Job(aClient,ch));
+	              });
+            
 			}
-		server.wait(1000 );
+	Thread.sleep(port);
 	}
 			
 	@Override
 	public void start(ClientHandler clientHandler) {
+		 System.out.println("jk");
 		this.ch=clientHandler;
-		new Thread(()->{
+		 //new Thread(()->{
 			try {
 				runServer();
 			} catch (Exception e) {
 				
 			}
-		}).start(); 
+		//}).start(); 
 	}
 
 	@Override
