@@ -1,0 +1,7 @@
+README  : 
+
+Students names :
+Ester Hatchuel
+Yarden Kesari
+
+The main function (located under Runner Class) gets an M integer that specify the amount of Threads to be run parallelly.
