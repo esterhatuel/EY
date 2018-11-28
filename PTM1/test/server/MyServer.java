@@ -11,12 +11,14 @@ public class MyServer implements Server{
 	///DONT PRINT ANYTHING IN THAT CLASS!!!!!!!!!!!!
 	private final int port;
 	private ClientHandler ch;
+	private int M ; 
 	private volatile boolean stop;
 	
-	public MyServer(int port) {
+	public MyServer(int port,int M) {
 		super();
 		this.port=port;
 		stop=false;
+		this.M = M ; 
 	}
 	
 	private void runServer() throws IOException, InterruptedException{
@@ -26,7 +28,7 @@ public class MyServer implements Server{
 				Socket aClient =  server.accept();
 				ExecutorService priorityJobScheduler = Executors.newSingleThreadExecutor();
 	             priorityJobScheduler.execute(() ->{
-					PriorityJobScheduler pjs = new PriorityJobScheduler(2,2) ; 
+					PriorityJobScheduler pjs = new PriorityJobScheduler(M,1000) ; 
 					pjs.scheduleJob(new Job(aClient,ch));
 	              });
             
