@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.util.stream.Collectors;
 
 public class Job implements Runnable {
-    //private ServerSocket server ; 
     private ClientHandler ch;
     private Socket aClient; 
     
@@ -21,7 +20,6 @@ public class Job implements Runnable {
 		this.aClient = aClient ;
 		this.ch = ch ; 
 		}
-
 
 
 	public int getJobPriority()  {
@@ -43,14 +41,10 @@ public class Job implements Runnable {
     public void run() {
     
         try {
-	 //		Socket aClient=server.accept(); 
 			ch.handleClient(aClient.getInputStream(), aClient.getOutputStream());
-		//	aClient.getInputStream().close();
-		//	aClient.getOutputStream().close();
 			aClient.close();
         	
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 		 	e.printStackTrace();
 		} // to simulate actual execution time
     }

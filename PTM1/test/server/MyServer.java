@@ -21,16 +21,11 @@ public class MyServer implements Server{
 	
 	private void runServer() throws IOException, InterruptedException{
 		ServerSocket server=new ServerSocket(port);
-		//ExecutorService executor = Executors. newFixedThreadPool (2);
 		
 			while(!stop){	
-				
-				
 				Socket aClient =  server.accept();
-			
 				ExecutorService priorityJobScheduler = Executors.newSingleThreadExecutor();
-	              priorityJobScheduler.execute(() ->{
-				    System.out.println("aggg");
+	             priorityJobScheduler.execute(() ->{
 					PriorityJobScheduler pjs = new PriorityJobScheduler(2,2) ; 
 					pjs.scheduleJob(new Job(aClient,ch));
 	              });
@@ -41,15 +36,14 @@ public class MyServer implements Server{
 			
 	@Override
 	public void start(ClientHandler clientHandler) {
-		 System.out.println("jk");
 		this.ch=clientHandler;
-		 //new Thread(()->{
+		new Thread(()->{
 			try {
 				runServer();
 			} catch (Exception e) {
 				
 			}
-		//}).start(); 
+		}).start(); 
 	}
 
 	@Override
