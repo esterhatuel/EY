@@ -20,7 +20,7 @@ public class MyServer implements Server{
 	}
 	
 	private void runServer() throws IOException, InterruptedException{
-		ServerSocket server=new ServerSocket(port);
+	ServerSocket server=new ServerSocket(port);
 		
 			while(!stop){	
 				Socket aClient =  server.accept();
@@ -33,7 +33,6 @@ public class MyServer implements Server{
 			}
 	Thread.sleep(port);
 	}
-			
 	@Override
 	public void start(ClientHandler clientHandler) {
 		this.ch=clientHandler;
