@@ -23,17 +23,19 @@ public class MyServer implements Server{
 	
 	private void runServer() throws IOException, InterruptedException{
 	ServerSocket server=new ServerSocket(port);
-		
-			while(!stop){	
+	PriorityJobScheduler pjs = new PriorityJobScheduler(M,1000) ; 
+
+
+			while(!stop){
+				System.out.println("test");
 				Socket aClient =  server.accept();
 				ExecutorService priorityJobScheduler = Executors.newSingleThreadExecutor();
 	             priorityJobScheduler.execute(() ->{
-					PriorityJobScheduler pjs = new PriorityJobScheduler(M,1000) ; 
 					pjs.scheduleJob(new Job(aClient,ch));
 	              });
             
 			}
-	Thread.sleep(port);
+	server.close();
 	}
 	@Override
 	public void start(ClientHandler clientHandler) {
