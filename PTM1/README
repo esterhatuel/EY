@@ -1,7 +1,18 @@
+
 README  : 
 
 Students names :
 Ester Hatchuel
 Yarden Kesari
 
-The main function (located under Runner Class) gets an M integer that specify the amount of Threads to be run parallelly.
+General Notes: 
+1. The main function (located under Runner Class) gets an M integer that specify the amount of Threads to be run parallelly.
+(M=2 default).
+2. In the MyServer class we're using a Single Thread pool that manages the requests.
+3. Afterwards - MyServers sends them to PriorityJobScheduler that add this Job to a priority Queue. (The priority of each job is based on its size).
+4. In the PriorityJobScheduler we manage a PriorityBlockingQueue to handle the order of the requests.
+5. Each request that is being executed - is actually running the Job's run method (Job implements Runnable).
+6. We have priorityJobPoolExecutor that is a thread pool in a fixed size = M that runs the Jobs (Thus - cannot run more than M jobs at the time).
+
+
+
